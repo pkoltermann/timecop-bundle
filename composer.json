@@ -1,0 +1,20 @@
+{
+  "name": "kolemp/timecop-bundle",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "homepage": "https://github.com/pkoltermann/timecop-bundle",
+  "description": "Easy symfony integration with https://github.com/hnw/php-timecop",
+  "keywords": ["timecop", "timetravel"],
+  "authors": [
+    {
+      "name": "Przemyslaw Koltermann",
+      "email": "git@kolemp.pl"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Kolemp\\": "src/Kolemp"
+    }
+  }
+}
+
