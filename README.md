@@ -2,6 +2,10 @@
 
 This is a very tiny symfony (2&3) bundle that simplifies usage of [php-timecop](https://github.com/hnw/php-timecop). To use this extension you need a php server with configured `timecop.so` extension. In case of troubles with compilation I can provide some extra instructions.
 
+## Warning!
+
+**Using this extension same as [php-timecop](https://github.com/hnw/php-timecop) alone can be very dangerous especially on production environment. Use it wisely.**
+
 ## Installation
 
 ```bash
