@@ -20,15 +20,12 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('kolemp_timecop');
         $rootNode->children()
-          ->arrayNode('allowed_environments')
-            ->prototype('scalar')->end()
-          ->end()
+          ->booleanNode('enabled')->defaultValue(false)->end()
         ->end();
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
-
         return $treeBuilder;
     }
 }

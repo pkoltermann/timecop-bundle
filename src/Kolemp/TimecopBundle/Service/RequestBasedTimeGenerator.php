@@ -10,24 +10,18 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 class RequestBasedTimeGenerator
 {
     /*
-     * string
+     * bool
      */
-    private $environment;
-
-    /**
-     * array
-     */
-    private $allowedEnvironments = [];
+    private $enabled;
 
     /**
      * RequestBasedTimeGenerator constructor.
      *
-     * @param $environment
+     * @param bool $enabled
      */
-    public function __construct($environment, $allowedEnvironments)
+    public function __construct($enabled)
     {
-        $this->environment = $environment;
-        $this->allowedEnvironments = $allowedEnvironments;
+        $this->enabled = $enabled;
     }
 
     /**
@@ -37,7 +31,7 @@ class RequestBasedTimeGenerator
      */
     public function onRequest(GetResponseEvent $event)
     {
-        if (!in_array($this->environment, $this->allowedEnvironments) || !$event->isMasterRequest()) {
+        if (!$this->enabled || !$event->isMasterRequest()) {
             return;
         }
 
