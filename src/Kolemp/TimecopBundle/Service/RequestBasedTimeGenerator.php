@@ -15,13 +15,19 @@ class RequestBasedTimeGenerator
     private $environment;
 
     /**
+     * array
+     */
+    private $allowedEnvironments = [];
+
+    /**
      * RequestBasedTimeGenerator constructor.
      *
      * @param $environment
      */
-    public function __construct($environment)
+    public function __construct($environment, $allowedEnvironments)
     {
         $this->environment = $environment;
+        $this->allowedEnvironments = $allowedEnvironments;
     }
 
     /**
@@ -31,7 +37,7 @@ class RequestBasedTimeGenerator
      */
     public function onRequest(GetResponseEvent $event)
     {
-        if ($this->environment !== 'dev' || !$event->isMasterRequest()) {
+        if (!in_array($this->environment, $this->allowedEnvironments) || !$event->isMasterRequest()) {
             return;
         }
 

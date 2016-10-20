@@ -24,5 +24,7 @@ class KolempTimecopExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->setParameter('kolemp_timecop.allowed_environments', $config['allowed_environments']);
     }
 }
