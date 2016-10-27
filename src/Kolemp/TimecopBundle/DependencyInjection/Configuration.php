@@ -21,6 +21,8 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('kolemp_timecop');
         $rootNode->children()
           ->booleanNode('enabled')->defaultValue(false)->end()
+          ->booleanNode('queryParameter')->defaultValue(true)->end()
+          ->booleanNode('cookie')->defaultValue(true)->end()
         ->end();
 
         // Here you should define the parameters that are allowed to

@@ -1,6 +1,9 @@
 services:
     kolemp_timecop.request_based_time_generator:
         class: Kolemp\TimecopBundle\Service\RequestBasedTimeGenerator
-        arguments: ["%kolemp_timecop.enabled%"]
+        arguments:
+            - "%kolemp_timecop.enabled%"
+            - "%kolemp_timecop.queryParameter%"
+            - "%kolemp_timecop.cookie%"
         tags:
           - { name: kernel.event_listener, event: kernel.request, method: onRequest, priority: 255 }

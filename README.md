@@ -20,3 +20,18 @@ After installation add the bundle to `app/AppKernel.php`. By default the extensi
 kolemp_timecop:
   enabled: true
 ```
+
+## Time sources
+
+You can set the time by query parameter or the cookie. Both are named `fakeTime`. The value given must be compatibile with [relative date formats](http://php.net/manual/en/datetime.formats.relative.php).
+Example url: *example.com?fakeTime=+3 days*
+
+### Disabling time source
+
+You can disable either of time sources in config. By default both are enabled:
+
+```php
+kolemp_timecop:
+  queryParameter: true
+  cookie: true
+```

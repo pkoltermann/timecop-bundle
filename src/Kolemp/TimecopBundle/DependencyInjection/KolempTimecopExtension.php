@@ -26,5 +26,7 @@ class KolempTimecopExtension extends Extension
         $loader->load('services.yml');
 
         $container->setParameter('kolemp_timecop.enabled', $config['enabled']);
+        $container->setParameter('kolemp_timecop.queryParameter', $config['queryParameter']);
+        $container->setParameter('kolemp_timecop.cookie', $config['cookie']);
     }
 }
