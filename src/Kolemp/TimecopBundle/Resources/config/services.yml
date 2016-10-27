@@ -7,3 +7,4 @@ services:
             - "%kolemp_timecop.cookie%"
         tags:
           - { name: kernel.event_listener, event: kernel.request, method: onRequest, priority: 255 }
+          - { name: kernel.event_listener, event: kernel.response, method: onResponse }
