@@ -59,11 +59,10 @@ class RequestBasedTimeGenerator
         if ($this->readQueryParameter) {
             if ($request->get(static::QUERY_PARAMETER_NAME, null) !== null) {
                 $fakeTimeString = $request->get(static::QUERY_PARAMETER_NAME);
-                $event->getRequest()->attributes->set(static::COOKIE_NAME, $fakeTimeString);
             }
         }
 
-        if ($fakeTimeString === null) {
+        if ($fakeTimeString === null || $fakeTimeString === "disabled") {
             return;
         }
 
@@ -88,9 +87,16 @@ class RequestBasedTimeGenerator
         $response = $event->getResponse();
         $request = $event->getRequest();
 
-        $fakeTime = $request->attributes->get(static::COOKIE_NAME);
-        $cookie = new Cookie(static::COOKIE_NAME, $fakeTime);
+        if ($request->get(static::QUERY_PARAMETER_NAME, null) !== null) {
+            $fakeTime = $request->get(static::QUERY_PARAMETER_NAME);
 
-        $response->headers->setCookie($cookie);
+            if ($fakeTime !== "disabled") {
+                $cookie = new Cookie(static::COOKIE_NAME, $fakeTime);
+                $response->headers->setCookie($cookie);
+            } else {
+                $response->headers->clearCookie(static::COOKIE_NAME);
+            }
+        }
+
     }
 }
