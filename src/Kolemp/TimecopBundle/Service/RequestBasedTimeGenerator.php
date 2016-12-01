@@ -2,6 +2,8 @@
 
 namespace Kolemp\TimecopBundle\Service;
 
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 /**
@@ -60,7 +62,7 @@ class RequestBasedTimeGenerator
             }
         }
 
-        if ($fakeTimeString === null) {
+        if ($fakeTimeString === null || $fakeTimeString === "disabled") {
             return;
         }
 
@@ -75,5 +77,26 @@ class RequestBasedTimeGenerator
         }
 
         timecop_travel($fakeTime);
+    }
+
+    /**
+     * @param FilterResponseEvent $event
+     */
+    public function onResponse(FilterResponseEvent $event)
+    {
+        $response = $event->getResponse();
+        $request = $event->getRequest();
+
+        if ($request->get(static::QUERY_PARAMETER_NAME, null) !== null) {
+            $fakeTime = $request->get(static::QUERY_PARAMETER_NAME);
+
+            if ($fakeTime !== "disabled") {
+                $cookie = new Cookie(static::COOKIE_NAME, $fakeTime);
+                $response->headers->setCookie($cookie);
+            } else {
+                $response->headers->clearCookie(static::COOKIE_NAME);
+            }
+        }
+
     }
 }
