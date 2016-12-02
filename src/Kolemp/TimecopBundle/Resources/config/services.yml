@@ -5,6 +5,7 @@ services:
             - "%kolemp_timecop.enabled%"
             - "%kolemp_timecop.queryParameter%"
             - "%kolemp_timecop.cookie%"
+            - "@event_dispatcher"
         tags:
           - { name: kernel.event_listener, event: kernel.request, method: onRequest, priority: 255 }
           - { name: kernel.event_listener, event: kernel.response, method: onResponse }
