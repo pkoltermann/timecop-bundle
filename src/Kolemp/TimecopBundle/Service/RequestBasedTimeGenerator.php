@@ -7,7 +7,6 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Kolemp\TimecopBundle\Event\TimecopTravelInvoked;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\Validator\Constraints\Time;
 
 /**
  * Class RequestBasedTimeGenerator.
