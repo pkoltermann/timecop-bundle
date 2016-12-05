@@ -4,6 +4,8 @@ namespace Kolemp\TimecopBundle\Service;
 
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Kolemp\TimecopBundle\Event\TimecopTravelInvoked;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 /**
@@ -20,6 +22,10 @@ class RequestBasedTimeGenerator
     private $enabled;
     private $readCookie;
     private $readQueryParameter;
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
 
     /**
      * RequestBasedTimeGenerator constructor.
@@ -27,12 +33,14 @@ class RequestBasedTimeGenerator
      * @param bool $enabled
      * @param bool $readQueryParameter
      * @param bool $readCookie
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct($enabled, $readQueryParameter, $readCookie)
+    public function __construct($enabled, $readQueryParameter, $readCookie, EventDispatcherInterface $eventDispatcher)
     {
         $this->enabled = $enabled;
         $this->readCookie = $readCookie;
         $this->readQueryParameter = $readQueryParameter;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -77,6 +85,13 @@ class RequestBasedTimeGenerator
         }
 
         timecop_travel($fakeTime);
+        
+        $this->eventDispatcher->dispatch(
+            TimecopTravelInvoked::NAME,
+            new TimecopTravelInvoked(
+                new \DateTime()
+            )
+        );
     }
 
     /**
