@@ -36,3 +36,7 @@ kolemp_timecop:
   cookie: true
   header: true
 ```
+
+### Source order
+
+The time data is used in the following order: the header, the cookie, the query parameter.
