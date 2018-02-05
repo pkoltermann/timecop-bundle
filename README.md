@@ -28,10 +28,11 @@ Example url: *example.com?fakeTime=+3 days*
 
 ### Disabling time source
 
-You can disable either of time sources in config. By default both are enabled:
+You can disable any of time sources in config. By default all are enabled:
 
 ```php
 kolemp_timecop:
   queryParameter: true
   cookie: true
+  header: true
 ```

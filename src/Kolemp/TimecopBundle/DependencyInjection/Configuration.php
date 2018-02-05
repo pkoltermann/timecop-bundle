@@ -23,6 +23,7 @@ class Configuration implements ConfigurationInterface
           ->booleanNode('enabled')->defaultValue(false)->end()
           ->booleanNode('queryParameter')->defaultValue(true)->end()
           ->booleanNode('cookie')->defaultValue(true)->end()
+          ->booleanNode('header')->defaultValue(true)->end()
         ->end();
 
         // Here you should define the parameters that are allowed to

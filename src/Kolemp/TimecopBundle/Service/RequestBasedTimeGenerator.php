@@ -15,6 +15,7 @@ class RequestBasedTimeGenerator
 {
     const COOKIE_NAME = 'fakeTime';
     const QUERY_PARAMETER_NAME = 'fakeTime';
+    const HEADER_NAME = 'X-FAKETIME';
 
     /*
      * bool
@@ -22,10 +23,12 @@ class RequestBasedTimeGenerator
     private $enabled;
     private $readCookie;
     private $readQueryParameter;
+    private $readHeader;
     /**
      * @var EventDispatcherInterface
      */
     private $eventDispatcher;
+
 
     /**
      * RequestBasedTimeGenerator constructor.
@@ -33,14 +36,16 @@ class RequestBasedTimeGenerator
      * @param bool $enabled
      * @param bool $readQueryParameter
      * @param bool $readCookie
+     * @param bool $readHeader
      * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct($enabled, $readQueryParameter, $readCookie, EventDispatcherInterface $eventDispatcher)
+    public function __construct($enabled, $readQueryParameter, $readCookie, $readHeader, EventDispatcherInterface $eventDispatcher)
     {
         $this->enabled = $enabled;
         $this->readCookie = $readCookie;
         $this->readQueryParameter = $readQueryParameter;
         $this->eventDispatcher = $eventDispatcher;
+        $this->readHeader = $readHeader;
     }
 
     /**
@@ -56,6 +61,12 @@ class RequestBasedTimeGenerator
 
         $fakeTimeString = null;
         $request = $event->getRequest();
+
+        if ($this->readHeader) {
+            if ($request->headers->get(static::HEADER_NAME, null) !== null) {
+                $fakeTimeString = $request->headers->get(static::HEADER_NAME);
+            }
+        }
 
         if ($this->readCookie) {
             $cookies = $request->cookies;

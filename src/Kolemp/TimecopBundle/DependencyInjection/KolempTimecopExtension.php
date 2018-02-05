@@ -28,5 +28,6 @@ class KolempTimecopExtension extends Extension
         $container->setParameter('kolemp_timecop.enabled', $config['enabled']);
         $container->setParameter('kolemp_timecop.queryParameter', $config['queryParameter']);
         $container->setParameter('kolemp_timecop.cookie', $config['cookie']);
+        $container->setParameter('kolemp_timecop.header', $config['header']);
     }
 }
