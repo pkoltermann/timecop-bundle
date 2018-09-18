@@ -85,7 +85,7 @@ class RequestBasedTimeGenerator
             return;
         }
 
-        $fakeTime = strtotime($fakeTimeString);
+        $fakeTime = strtotime(urldecode($fakeTimeString));
 
         if ($fakeTime === false) {
             throw new \InvalidArgumentException('Given fake time is invalid: '.$fakeTimeString);
